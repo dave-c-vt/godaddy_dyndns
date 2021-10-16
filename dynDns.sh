@@ -22,7 +22,12 @@ SUBJECT="IP ADDRESS CHANGE"
 NEWIPFILE=.new_ip
 OLDIPFILE=.old_ip
 
-dig +short myip.opendns.com @resolver1.opendns.com > .new_ip
+if [ ! -f $OLDIPFILE ]
+then
+    touch $OLDIPFILE
+fi
+
+dig +short myip.opendns.com @resolver1.opendns.com > $NEWIPFILE
 
 NEWIP=$(cat $NEWIPFILE)
 OLDIP=$(cat $NEWIPFILE)
