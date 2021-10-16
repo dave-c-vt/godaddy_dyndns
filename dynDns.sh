@@ -32,7 +32,7 @@ dig +short myip.opendns.com @resolver1.opendns.com > $NEWIPFILE
 NEWIP=$(cat $NEWIPFILE)
 OLDIP=$(cat $NEWIPFILE)
 DIFF=$(diff $NEWIPFILE $OLDIPFILE)
-LOGFILE=dns.log
+LOGFILE=$HOME/dns.log
 
 function send_email() {
 
