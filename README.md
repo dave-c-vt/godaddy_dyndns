@@ -44,7 +44,7 @@ SUBJECT="IP ADDRESS CHANGE"
 ### add to crontab
 
 ``` bash
-SCRIPT=$(pwd)/dynDns.sh
+SCRIPT="/bin/bash $(pwd)/dynDns.sh"  
 crontab -l | grep -v "$SCRIPT" > crontab.txt && echo "* * * * * $SCRIPT" >> crontab.txt && crontab crontab.txt
 ```
 
