@@ -21,7 +21,7 @@ cd godaddy_dyndns
 
 go to https://developer.godaddy.com/keys and follow the instructions there.
 
-### update the settings in the dynDns.sh file
+### update the settings in the .dyn_dns file
 
 ``` bash
 # GODADDY SETTINGS

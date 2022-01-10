@@ -1,0 +1,18 @@
+
+# EMAIL SETTINGS
+SENDEMAIL=sendemail@email.com   # set to "" to not send email
+EMAILPASS=emailPassword
+SMTPSERVER=email.com
+RECVEMAIL=recpipient@someemail.com
+SUBJECT="IP ADDRESS CHANGE"
+
+# GODADDY SETTINGS
+GODADDYKEY="[this is my godaddy key]"
+GODADDYSEC="[this is my godaddy secret]"
+
+# FILENAMES
+NEWIPFILE=.new_ip
+OLDIPFILE=.old_ip
+
+# DOMAINS TO UPDATE
+declare -a DOMAINS=("domain1.com" "domain2.com" "domain.cloud")

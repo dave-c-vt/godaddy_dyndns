@@ -1,28 +1,13 @@
 #!/bin/bash
 
-
-# GODADDY SETTINGS
-#  - see https://developer.godaddy.com/keys to create your key/secret pair
-GODADDYKEY="goDaddyKey"
-GODADDYSEC="goDaddySecret"
-
-# DOMAINS TO UPDATE
-declare -a DOMAINS=("domain1.com" "domain2.com" "domain3.cloud")
-
-
-# EMAIL SETTINGS
-SENDEMAIL=sendemail@email.com   # set to "" to not send email
-EMAILPASS=emailPassword
-SMTPSERVER=email.com
-RECVEMAIL=recpipient@someemail.com
-SUBJECT="IP ADDRESS CHANGE"
-
-
-# FILENAMES
-NEWIPFILE=.new_ip
-OLDIPFILE=.old_ip
+source .dyn_dns
 
 if [ ! -f $OLDIPFILE ]
+then
+    touch $OLDIPFILE
+fi
+
+if [ ! -f $NEWIPFILE ]
 then
     touch $OLDIPFILE
 fi
@@ -32,7 +17,7 @@ dig +short myip.opendns.com @resolver1.opendns.com > $NEWIPFILE
 NEWIP=$(cat $NEWIPFILE)
 OLDIP=$(cat $NEWIPFILE)
 DIFF=$(diff $NEWIPFILE $OLDIPFILE)
-LOGFILE=dns.log
+LOGFILE=$HOME/dns.log
 
 function send_email() {
 
@@ -59,7 +44,12 @@ function update_dns() {
         for name in "@" "mx"
         do
             echo "[$(date)] [SETTING] $domain $name $NEWIP" >> $LOGFILE
-            res=$(curl -s -X PUT "https://api.godaddy.com/v1/domains/${domain}/records/A/${name}" -H "Authorization: sso-key ${key}:${secret}" -H "Content-Type: application/json" -d " [{\"data\": \"${NEWIP}\"}]")
+
+            res=$(curl -s -X PUT "https://api.godaddy.com/v1/domains/${domain}/records/A/${name}"\
+                -H "Authorization: sso-key ${key}:${secret}"\
+                -H "Content-Type: application/json"\
+                -d " [{\"data\": \"${NEWIP}\"}]")
+
             echo $res
 
         done

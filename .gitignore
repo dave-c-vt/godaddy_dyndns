@@ -1,0 +1,7 @@
+.new_ip
+.old_ip
+*.log
+*.swp
+*.swo
+*..*
+
